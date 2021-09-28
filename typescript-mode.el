@@ -2980,6 +2980,17 @@ Key bindings:
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
 
+;;;###autoload
+(ignore-errors
+  ;; experimental TSX-support via tree-sitter, if available
+  (require 'tree-sitter)
+  (require 'tree-sitter-langs)
+  (define-derived-mode typescript-tsx-mode typescript-mode "tsx")
+  (add-hook typescript-tsx-mode-hook #'tree-sitter-hl-mode)
+  (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-tsx-mode . tsx))
+  (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . typescript-tsx-mode)))
+
+
 (provide 'typescript-mode)
 
 ;;; typescript-mode.el ends here
